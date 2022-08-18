@@ -1,5 +1,4 @@
-import sys
-import math
+
 import random
 
 class player:
@@ -147,5 +146,5 @@ class tournament:
 
 
 
-test = tournament(300, 1)
+test = tournament(12, 1)
 test.start_tournament()
