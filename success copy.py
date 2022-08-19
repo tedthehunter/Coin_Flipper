@@ -60,6 +60,7 @@ class game:
       return self.player_a
 
 
+
 # this function initializes a number of players and names them
 def roster(number_of_players):
   player_list = []
