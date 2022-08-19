@@ -55,6 +55,7 @@ class game:
 ## ATTEMPTING TO INVALIDATE THIS BLOCK OF CODE ##
 # class round:
 #   def __init__(self, player_list):
+# BLAH BLAH TESTING 123
 #     self.player_list = player_list
 #     self.game_list = [game(random.choice(self.player_list.pop(), random.choice(self.player_list.pop()))) for player in self.player_list]
 
@@ -66,6 +67,7 @@ class game:
 #         pass
 
 #   def dq_check(self):
+# MAKING RANDOM CHANGES FOR GIT TESTING - DISREGARD
 #     for game in self.game_list:
 #       if game.player_a.disqualified == True:
 #         self.player_list.append(game.player_b)
