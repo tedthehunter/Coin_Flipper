@@ -29,7 +29,7 @@ class player:
 
 ## TRY TO SET A DEFAULT VALUE FOR PLAYER_B IN SUCH A WAY THAT A SINGLE PLAYER WILL AUTOMATICALLY GET A BYE
 class game:
-  def __init__(self, player_a, player_b):
+  def __init__(self, player_a, player_b=None):
     self.player_a = player_a
     self.player_b = player_b
     
@@ -37,50 +37,28 @@ class game:
     return f'Game Object between {self.player_a.name} and {self.player_b.name}'
 
   def play(self):
-    winner = random.choice([self.player_a, self.player_b])
-    if winner == self.player_a:
-      print(str(self.player_a.name) + ' wins a coin from ' + str(self.player_b.name) + '!')
-      self.player_a.coins += 1
-      self.player_b.coins -= 1
-      self.player_b.dq_check()
-      print('\n')
+    if not self.player_b == None:
+      winner = random.choice([self.player_a, self.player_b])
+      if winner == self.player_a:
+        print(str(self.player_a.name) + ' wins a coin from ' + str(self.player_b.name) + '!')
+        self.player_a.coins += 1
+        self.player_b.coins -= 1
+        if self.player_b.dq_check():
+          print('\n')
+          return self.player_a
+        else:
+          print('\n')
+          return self.player_a, self.player_b
+      else:
+        print(str(self.player_b.name) + ' wins a coin from ' + str(self.player_a.name) + '!')
+        self.player_b.coins += 1
+        self.player_a.coins -= 1
+        self.player_a.dq_check()
+        print('\n')
     else:
-      print(str(self.player_b.name) + ' wins a coin from ' + str(self.player_a.name) + '!')
-      self.player_b.coins += 1
-      self.player_a.coins -= 1
-      self.player_a.dq_check()
-      print('\n')
+      print(f'{self.player_a.name} gets a bye round.')
+      return self.player_a
 
-
-## ATTEMPTING TO INVALIDATE THIS BLOCK OF CODE ##
-# class round:
-#   def __init__(self, player_list):
-#     self.player_list = player_list
-#     self.game_list = [game(random.choice(self.player_list.pop(), random.choice(self.player_list.pop()))) for player in self.player_list]
-
-#   def pair_up(self):
-#     for player in self.player_list:
-#       if len(self.player_list) >= 2:
-#         self.game_list.append(game(self.player_list.pop(0), self.player_list.pop(-1)))
-#       else:
-#         pass
-
-#   def dq_check(self):
-#     for game in self.game_list:
-#       if game.player_a.disqualified == True:
-#         self.player_list.append(game.player_b)
-#       elif game.player_b.disqualified == True:
-#         self.player_list.append(game.player_a)
-#       else:
-#         self.player_list.append(game.player_a)
-#         self.player_list.append(game.player_b)
-   
-#   def execute_round(self):
-#     self.pair_up()
-#     for game in self.game_list:
-#       game.play()
-#     self.dq_check()
-#     return self.player_list
 
 # this function initializes a number of players and names them
 def roster(number_of_players):
@@ -120,7 +98,8 @@ class tournament:
   def execute_round(self):
     print(f'Round {str(self.round_position)} begin!')
     self.status_message()
-    game(random.choice(self.player_list), random.choice(self.player_list)).play()
+    while len(self.player_list) > 0:
+      game(self.player_list.pop(random.randint(range(len(self.player_list)))), self.player_list.pop(random.randint(range(len(self.player_list))))).play()
     self.round_position += 1
     
   def execute_tournament(self):
