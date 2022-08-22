@@ -99,8 +99,10 @@ class tournament:
   def execute_round(self):
     print(f'Round {str(self.round_position)} begin!')
     self.status_message()
+    new_list = []
     while len(self.player_list) > 0:
-      game(self.player_list.pop(random.randint(range(len(self.player_list)))), self.player_list.pop(random.randint(range(len(self.player_list))))).play()
+      new_list.append((game(self.player_list.pop(random.randint(0, len(self.player_list)))), self.player_list.pop(random.randint(0, len(self.player_list)))).play())
+    self.player_list = new_list
     self.round_position += 1
     
   def execute_tournament(self):
